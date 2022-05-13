@@ -101,7 +101,7 @@ const LoginForm: React.FC<Props> = ({ loginUser, clearState, auth }) => {
                   placeholder="Email"
                   autoCapitalize="off"
                   onChange={(e) => setUsername(e.target.value)}
-                  className="ct_forms_input_field"
+                  className="input_field"
                   bordered={false}
                   style={{ borderBottom: "0.5px solid #272e35" }}
                 />
@@ -121,7 +121,7 @@ const LoginForm: React.FC<Props> = ({ loginUser, clearState, auth }) => {
                   type={passwordVisible ? "text" : "password"}
                   placeholder="Password"
                   onChange={(e) => setPassword(e.target.value)}
-                  className="ct_forms_input_field"
+                  className="input_field"
                   bordered={false}
                   style={{ borderBottom: "0.5px solid #272e35" }}
                 />
@@ -140,14 +140,14 @@ const LoginForm: React.FC<Props> = ({ loginUser, clearState, auth }) => {
                 )}
               </Form.Item>
               {error !== null && (
-                <Form.Item name="pxember" valuePropName="checked">
+                <Form.Item name="remember" valuePropName="checked">
                   <Text type="danger">{error}</Text>
                 </Form.Item>
               )}
             </Col>
             <Col>
               <Form.Item>
-                <Form.Item name="pxember" valuePropName="checked" noStyle>
+                <Form.Item name="remember" valuePropName="checked" noStyle>
                   <Checkbox onChange={(e) => setRememberMe(e.target.value)}>
                     Keep me logged in
                   </Checkbox>
@@ -169,7 +169,7 @@ const LoginForm: React.FC<Props> = ({ loginUser, clearState, auth }) => {
                 <Button
                   type="primary"
                   htmlType="submit"
-                  className="ct_forms_primary_button"
+                  className="primary_button"
                   style={{
                     margin: "auto",
                   }}

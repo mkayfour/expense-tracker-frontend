@@ -15,9 +15,6 @@ import {
 } from "../../core/redux/actions";
 import { StateType } from "../../../app/core/redux/types";
 import Title from "antd/lib/typography/Title";
-import Checkbox from "antd/lib/checkbox/Checkbox";
-
-import { CT_FORM_TERMS } from "../../../shared/constants/constants";
 
 const { Text } = Typography;
 
@@ -53,8 +50,6 @@ const RegisterForm: React.FC<Props> = ({
 
   const [loading, setLoading] = useState(false);
 
-  const [termsAccepted, setTermsAccepted] = useState<boolean>(false);
-
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   const registerError = auth.error;
@@ -70,9 +65,6 @@ const RegisterForm: React.FC<Props> = ({
     }
     if (password1 !== password2) {
       errors.password2 = "Passwords are not same";
-    }
-    if (!termsAccepted) {
-      errors.termsAccepted = "You need to accept all terms and conditions.";
     }
 
     if (!email) {
@@ -145,7 +137,7 @@ const RegisterForm: React.FC<Props> = ({
               placeholder="Email"
               autoCapitalize="off"
               onChange={(e) => setEmail(e.target.value)}
-              className="ct_forms_input_field"
+              className="input_field"
               bordered={false}
               style={{ borderBottom: "0.5px solid #272e35" }}
             />
@@ -173,7 +165,7 @@ const RegisterForm: React.FC<Props> = ({
               onChange={(e) => {
                 setPassword1(e.target.value);
               }}
-              className="ct_forms_input_field"
+              className="input_field"
               bordered={false}
               style={{ borderBottom: "0.5px solid #272e35" }}
             />
@@ -193,7 +185,7 @@ const RegisterForm: React.FC<Props> = ({
               onChange={(e) => {
                 setPassword2(e.target.value);
               }}
-              className="ct_forms_input_field"
+              className="input_field"
               bordered={false}
               style={{ borderBottom: "0.5px solid #272e35" }}
             />
@@ -218,47 +210,6 @@ const RegisterForm: React.FC<Props> = ({
           ) : (
             <></>
           )}
-
-          <Form.Item
-            name="privacy_policy_accepted"
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              marginBottom: "5px",
-              justifyContent: "center",
-              alignContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Checkbox
-              checked={termsAccepted}
-              onChange={(e) => setTermsAccepted(e.target.checked)}
-              style={{
-                // width: "100%",
-                marginBottom: "10px",
-                padding: "0px",
-                margin: "auto",
-              }}
-            >
-              I agree to{" "}
-              <a
-                href={CT_FORM_TERMS.PRIVACY_POLICY}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Privacy Policy{" "}
-              </a>{" "}
-              and
-              <a
-                href={CT_FORM_TERMS.TERMS_AND_CONDITIONS}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {" "}
-                Terms and conditions
-              </a>
-            </Checkbox>
-          </Form.Item>
 
           {registerError && (
             <Form.Item
@@ -302,8 +253,7 @@ const RegisterForm: React.FC<Props> = ({
                 htmlType="submit"
                 disabled={
                   /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email) &&
-                  password1 === password2 &&
-                  termsAccepted
+                  password1 === password2
                     ? false
                     : true
                 }
