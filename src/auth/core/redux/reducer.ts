@@ -29,7 +29,7 @@ export const authReducer: any = (
 
   switch (action.type) {
     case LOGIN_USER: {
-      console.log("----------------- after login ------------", action);
+      console.log("----------------- after login -------------", action);
       return { ...state, ...payload };
     }
 
