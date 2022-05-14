@@ -78,6 +78,7 @@ const RegisterForm: React.FC<Props> = ({
 
   const onFinish = (values: any) => {
     const errors = validationCheck();
+    setLoading(true);
 
     if (Object.keys(errors).length === 0) {
       const newValue: any = {};

@@ -2,7 +2,7 @@ import React from "react";
 
 import { Col, Row } from "antd";
 
-const AppTitle = () => {
+const AppTitle = (props: any) => {
   return (
     <Row
       style={{
@@ -19,7 +19,9 @@ const AppTitle = () => {
             display: "flex",
             justifyContent: "center",
           }}
-        ></div>
+        >
+          {props.title}
+        </div>
       </Col>
     </Row>
   );

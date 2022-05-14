@@ -1,13 +1,11 @@
 import { Types } from "./types";
 
 interface DefaultStateI {
-  currentOrganization: {};
   isLoading: boolean;
 }
 
 const defaultState: DefaultStateI = {
   isLoading: false,
-  currentOrganization: {},
 };
 
 const { SET_LOADING, SET_AUTHENTICATED } = Types;

@@ -8,6 +8,7 @@ import { ThunkDispatch } from "redux-thunk";
 import { LogoutUser } from "../../../auth/core/redux/actions";
 
 import { StateType } from "../../core/redux/types";
+import { Link } from "react-router-dom";
 
 const Dashboard = (props: any) => {
   const { logoutUser } = props;
@@ -20,19 +21,23 @@ const Dashboard = (props: any) => {
     <div
       style={{
         display: "flex",
+        flexDirection: "column",
         width: "100vw",
         height: "100vh",
         justifyContent: "center",
         alignItems: "center",
         textAlign: "center",
+        backgroundColor: "whitesmoke",
       }}
     >
-      <Card>
-        {" "}
-        <Typography.Title level={1}>Welcome </Typography.Title>
+      <Card title="Welcome">
         <Typography.Title level={3}>
           You have successfully logged in.
         </Typography.Title>
+        <Typography.Title level={3} style={{ color: "" }}>
+          <Link to="/profile">See your Profile </Link>
+        </Typography.Title>
+
         <Divider />
         <Button onClick={handleLogout}>Logout</Button>
       </Card>

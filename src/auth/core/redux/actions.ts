@@ -5,6 +5,8 @@ import { LoginDispatchTypes, Types } from "./types";
 import axios from "axios";
 
 import { message } from "antd";
+import { getCurrentSessionTokens } from "../services/session";
+import { toast } from "react-toastify";
 
 const {
   LOGIN_USER,
@@ -16,6 +18,8 @@ const {
   SET_LOGIN_ERROR,
   SET_REGISTER_ERROR,
   REGISTER_SUCCESS,
+  UPDATE_PROFILE,
+  GET_PROFILE,
 } = Types;
 
 export const LoginUser =
@@ -39,6 +43,9 @@ export const LoginUser =
         .then(async (response) => {
           const accessToken = response.data.included[0].attributes.token;
           const refreshToken = response.data.included[1].attributes.token;
+
+          toast.success("Login successful.");
+
           await axios
             .get(`${process.env.REACT_APP_SERVER_URL}/auth/me/`, {
               headers: {
@@ -164,7 +171,8 @@ export const RegisterUser =
           },
         });
 
-        message.success("Registeration successful.");
+        // message.success("Registeration successful.");
+        toast.success("Registeration successful.");
 
         dispatch({
           type: SET_AUTHENTICATED,
@@ -188,7 +196,6 @@ export const RegisterUser =
           errorsList.push(value);
         }
 
-        // TODO: OTP error message change
         dispatch({
           type: SET_REGISTER_ERROR,
           payload: {
@@ -215,4 +222,55 @@ export const GetUserData =
         });
       })
       .catch((err) => console.log("--- erro", err));
+  };
+
+export const GetProfile =
+  () => async (dispatch: Dispatch<LoginDispatchTypes>) => {
+    const { accessToken } = getCurrentSessionTokens();
+    try {
+      await axios
+        .get(`${process.env.REACT_APP_SERVER_URL}/auth/me`, {
+          headers: {
+            "x-access-token": `${accessToken}`,
+          },
+        })
+        .then((response: any) => {
+          const userData = response.data;
+
+          dispatch({
+            type: GET_PROFILE,
+            payload: { user: userData.data },
+          });
+        })
+        .catch((err) => {
+          console.log("------> Error ------->", err);
+        });
+    } catch (e) {
+      console.log("an error occoured ", e);
+    }
+  };
+
+export const UpdateProfile =
+  (payload) => async (dispatch: Dispatch<LoginDispatchTypes>) => {
+    try {
+      await axios
+        .post(`${process.env.REACT_APP_SERVER_URL}/auth/me`, payload)
+        .then((response: any) => {
+          const userData = response.data;
+
+          dispatch({
+            type: UPDATE_PROFILE,
+            payload: { user: userData.data },
+          });
+
+          toast.success("Profile updated successfully.");
+
+          GetProfile();
+        })
+        .catch((err) => {
+          console.log("------> Error ------->", err);
+        });
+    } catch (e) {
+      console.log("an error occoured ", e);
+    }
   };

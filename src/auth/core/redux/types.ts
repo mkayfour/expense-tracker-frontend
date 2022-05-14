@@ -11,6 +11,8 @@ export enum Types {
   REGISTER_USER = "REGISTER_USER",
   REGISTER_SUCCESS = "REGISTER_SUCCESS",
   REGISTER_FAIL = "REGISTER_FAIL",
+  UPDATE_PROFILE = "UPDATE_PROFILE",
+  GET_PROFILE = "GET_PROFILE",
 }
 
 export type LoginData = {
@@ -104,6 +106,15 @@ export interface SetAccessToken {
   };
 }
 
+export interface UpdateProfile {
+  type: typeof Types.UPDATE_PROFILE;
+  payload: any;
+}
+
+export interface GetProfile {
+  type: typeof Types.GET_PROFILE;
+  payload: any;
+}
 export interface ClearState {
   type: typeof Types.CLEAR_STATE;
   payload: {};
@@ -121,4 +132,6 @@ export type LoginDispatchTypes =
   | ClearState
   | RegisterUser
   | RegisterSuccess
-  | RegisterFail;
+  | RegisterFail
+  | UpdateProfile
+  | GetProfile;

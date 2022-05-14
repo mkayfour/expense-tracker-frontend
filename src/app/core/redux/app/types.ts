@@ -1,6 +1,8 @@
 export enum Types {
   SET_LOADING = "SET_LOADING",
   SET_AUTHENTICATED = "SET_AUTHENTICATED",
+  UPDATE_PROFILE = "UPDATE_PROFILE",
+  GET_PROFILE = "GET_PROFILE",
 }
 
 export interface SetLoadingPayload {

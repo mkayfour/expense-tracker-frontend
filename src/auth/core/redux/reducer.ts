@@ -17,6 +17,8 @@ const {
   SET_ACCESS_TOKEN,
   CLEAR_STATE,
   REGISTER_SUCCESS,
+  GET_PROFILE,
+  UPDATE_PROFILE,
 } = Types;
 
 export const authReducer: any = (
@@ -69,6 +71,7 @@ export const authReducer: any = (
     }
 
     case SET_USERDATA: {
+      console.log("---------> payload here ---------->", action);
       return { ...state, ...payload };
     }
 
@@ -88,6 +91,15 @@ export const authReducer: any = (
         localStorage.setItem("refreshToken", action.payload.refreshToken);
       return { ...state, ...payload };
     }
+
+    case GET_PROFILE:
+      console.log("-----------> action here ------------>", action);
+      return { ...state, ...payload };
+
+    case UPDATE_PROFILE:
+      console.log("-----------> action here ------------>", action);
+      return state;
+    // return { ...state, ...payload };
 
     default:
       return state;
